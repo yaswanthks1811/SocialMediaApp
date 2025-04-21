@@ -1,0 +1,124 @@
+/* AdminLogin.css */
+
+.admin-login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #cbd1d1, #a1a1a1); /* A cool gradient background */
+    padding: 20px;
+}
+
+.admin-login-card {
+    background: rgba(255, 255, 255, 0.9); /* Semi-transparent white card */
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* More pronounced shadow */
+    width: 100%;
+    max-width: 400px;
+    padding: 40px;
+    text-align: center;
+}
+
+.admin-login-header {
+    margin-bottom: 30px;
+}
+
+.admin-login-header h2 {
+    color: #333;
+    font-size: 28px;
+    margin-bottom: 10px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.admin-icon {
+    font-size: 24px;
+    color: #2193b0; /* Accent color */
+}
+
+.admin-login-header p {
+    color: #555;
+    font-size: 16px;
+}
+
+.admin-login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 8px;
+    font-weight: 500;
+    text-align: left;
+}
+
+.input-wrapper {
+    position: relative;
+}
+
+.input-icon {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #777;
+    font-size: 18px;
+}
+
+.form-control {
+    padding: 12px 15px 12px 45px; /* Add left padding for the icon */
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: #b3b8b9; /* Accent color on focus */
+    box-shadow: 0 0 0 0.2rem rgba(33, 147, 176, 0.25); /* Accent focus shadow */
+}
+
+.login-button {
+    padding: 14px 20px;
+    background-color: #2193b0; /* Accent color for button */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.login-button:hover:not(:disabled) {
+    background-color:#19728a; /* Darker shade on hover */
+}
+
+.login-button:disabled {
+    background-color: #a7d1db;
+    cursor: not-allowed;
+}
+
+.message-container {
+    margin-top: 20px;
+}
+
+.success-message {
+    color: green;
+    font-size: 16px;
+}
+
+.error-message {
+    color: #dc3545; /* Standard error color */
+    font-size: 16px;
+}

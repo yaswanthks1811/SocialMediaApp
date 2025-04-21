@@ -1,0 +1,171 @@
+/* MessageInbox.css */
+.inbox-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fafafa;
+    min-height: 100vh;
+  }
+  
+  .inbox-header {
+    margin-bottom: 25px;
+    position: sticky;
+    top: 0;
+    background-color: #fafafa;
+    padding: 15px 0;
+    z-index: 10;
+  }
+  
+  .inbox-header h2 {
+    display: flex;
+    align-items: center;
+    color: #262626;
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .header-icon {
+    margin-right: 10px;
+    color: #0095f6;
+  }
+  
+  .search-bar {
+    position: relative;
+    margin-bottom: 15px;
+  }
+  
+  .search-bar input {
+    width: 100%;
+    padding: 12px 15px 12px 40px;
+    border-radius: 8px;
+    border: 1px solid #dbdbdb;
+    background-color: #f0f0f0;
+    font-size: 14px;
+    outline: none;
+    transition: all 0.3s ease;
+  }
+  
+  .search-bar input:focus {
+    background-color: #fff;
+    border-color: #0095f6;
+  }
+  
+  .search-icon {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #8e8e8e;
+  }
+  
+  .sender-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .sender-item {
+    margin-bottom: 10px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease;
+  }
+  
+  .sender-item:hover {
+    transform: translateY(-2px);
+  }
+  
+  .sender-link {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  .sender-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 15px;
+    background-color: #f0f0f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .sender-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .default-avatar {
+    font-size: 50px;
+    color: #ccc;
+  }
+  
+  .sender-info {
+    flex: 1;
+  }
+  
+  .sender-name {
+    display: block;
+    font-weight: 600;
+    color: #262626;
+    margin-bottom: 3px;
+  }
+  
+  .sender-preview {
+    display: block;
+    font-size: 13px;
+    color: #8e8e8e;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .chevron-icon {
+    color: #dbdbdb;
+    margin-left: 10px;
+  }
+  
+  .empty-inbox {
+    text-align: center;
+    padding: 50px 20px;
+    color: #8e8e8e;
+  }
+  
+  .empty-icon {
+    font-size: 50px;
+    margin-bottom: 15px;
+    color: #dbdbdb;
+  }
+  
+  .loading-spinner {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    border-top: 4px solid #0095f6;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin: 50px auto;
+  }
+  
+  .error-message {
+    text-align: center;
+    padding: 50px 20px;
+    color: #ed4956;
+  }
+  
+  .error-icon {
+    font-size: 50px;
+    margin-bottom: 15px;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }

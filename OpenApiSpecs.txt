@@ -1,0 +1,1215 @@
+openapi: 3.0.0
+info:
+  title: Admin Login API
+  version: 1.0.0
+  description: API for admin login
+
+paths:
+  /api/admin/login:
+    post:
+      summary: Admin login
+      description: Authenticates an admin and returns a session token.
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '200':
+          description: Successful login.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                  adminId:
+                    type: integer
+                  adminUsername:
+                    type: string
+        '401':
+          description: Unauthorized - Invalid credentials.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+					
+					
+					
+					
+					
+openapi: 3.0.0
+info:
+  title: Admin Logout API
+  version: 1.0.0
+  description: API for admin logout
+
+paths:
+  /api/admin/logout:
+    get:
+      summary: Admin logout
+      description: Invalidates the admin session.
+      responses:
+        '200':
+          description: Logout successful.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+					
+					
+# OpenAPI Specification (admin-api.yaml)
+openapi: 3.0.0
+info:
+  title: Admin API
+  version: 1.0.0
+  description: API for admin operations
+
+paths:
+  /api/admin/:
+    get:
+      summary: Get admin dashboard data
+      description: Retrieves lists of users and posts for the admin dashboard.
+      responses:
+        '200':
+          description: Successful retrieval of data.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  users:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/User'
+                  posts:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Post'
+        '401':
+          description: Unauthorized.
+    post:
+      summary: Admin actions
+      description: Performs admin actions like deleting users, banning/unbanning users, deleting posts, and creating admins.
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                action:
+                  type: string
+                  enum: [deleteUser, banUser, unbanUser, deletePost, createAdmin]
+                userId:
+                  type: integer
+                postId:
+                  type: integer
+                username:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '200':
+          description: Action successful.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  success:
+                    type: boolean
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '500':
+          description: Internal server error.
+
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        userId:
+          type: integer
+        username:
+          type: string
+        email:
+          type: string
+        // ... other user properties ...
+    Post:
+      type: object
+      properties:
+        postId:
+          type: integer
+        postCaption:
+          type: string
+        // ... other post properties ...
+		
+		
+		
+openapi: 3.0.0
+info:
+  title: Add Comment API
+  version: 1.0.0
+  description: API for adding comments to posts
+
+paths:
+  /api/addComment:
+    post:
+      summary: Add a comment
+      description: Adds a comment to a specified post.
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                postId:
+                  type: string
+                commentText:
+                  type: string
+      responses:
+        '200':
+          description: Comment added successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '400':
+          description: Bad request (missing parameters).
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        '401':
+          description: Unauthorized (user not logged in).
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+					
+					
+openapi: 3.0.0
+info:
+  title: Delete Post API
+  version: 1.0.0
+  description: API for deleting posts
+
+paths:
+  /api/deletePost:
+    post:
+      summary: Delete a post
+      description: Deletes a specified post.
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                targetPostId:
+                  type: string
+      responses:
+        '200':
+          description: Post deleted successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '400':
+          description: Bad request (missing parameters).
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        '401':
+          description: Unauthorized (user not logged in).
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+					
+					
+openapi: 3.0.0
+info:
+  title: Edit Profile API
+  version: 1.0.0
+  description: API for editing user profiles
+
+paths:
+  /api/editProfile:
+    get:
+      summary: Get user profile
+      description: Retrieves the user's profile information.
+      responses:
+        '200':
+          description: Profile retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '401':
+          description: Unauthorized (user not logged in).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      summary: Update user profile
+      description: Updates the user's profile information.
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                firstname:
+                  type: string
+                lastname:
+                  type: string
+                bio:
+                  type: string
+                email:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '200':
+          description: Profile updated successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '401':
+          description: Unauthorized (user not logged in).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        // ... user properties ...
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+		  
+		  
+		  
+openapi: 3.0.0
+info:
+  title: Social Media App API
+  version: 1.0.0
+  description: API for a social media application with user profiles, posts, comments, likes, and messaging
+servers:
+  - url: http://localhost:8080/SocialMediaApp/api
+    description: Development server
+
+paths:
+  /feed:
+    get:
+      summary: Get user's feed
+      responses:
+        '200':
+          description: Successful retrieval of feed
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Post'
+        '401':
+          description: Unauthorized - User not logged in
+      tags:
+        - Feed
+
+  /likePost:
+    post:
+      summary: Like or unlike a post
+      parameters:
+        - name: postId
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully liked/unliked post
+        '400':
+          description: Bad request - Missing post ID
+        '401':
+          description: Unauthorized - User not logged in
+      tags:
+        - Posts
+
+  /addComment:
+    post:
+      summary: Add a comment to a post
+      parameters:
+        - name: postId
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: commentText
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Comment added successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Comment'
+        '401':
+          description: Unauthorized - User not logged in
+      tags:
+        - Comments
+
+  /profile:
+    get:
+      summary: Get user profile
+      parameters:
+        - name: id
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Profile retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Profile'
+        '401':
+          description: Unauthorized - User not logged in
+      tags:
+        - Profiles
+
+  /editProfile:
+    post:
+      summary: Update user profile
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                firstname:
+                  type: string
+                lastname:
+                  type: string
+                bio:
+                  type: string
+                email:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '200':
+          description: Profile updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Profile'
+      tags:
+        - Profiles
+
+  /follow:
+    post:
+      summary: Follow a user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                targetUserId:
+                  type: string
+      responses:
+        '200':
+          description: User followed successfully
+        '400':
+          description: Bad request - Missing target user ID
+        '401':
+          description: Unauthorized - User not logged in
+      tags:
+        - Followers
+
+  /unfollow:
+    post:
+      summary: Unfollow a user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                targetUserId:
+                  type: string
+      responses:
+        '200':
+          description: User unfollowed successfully
+        '400':
+          description: Bad request - Missing target user ID
+        '401':
+          description: Unauthorized - User not logged in
+      tags:
+        - Followers
+
+  /deletePost:
+    post:
+      summary: Delete a post
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                targetPostId:
+                  type: string
+      responses:
+        '200':
+          description: Post deleted successfully
+      tags:
+        - Posts
+
+  /sendMessage:
+    post:
+      summary: Send a message to another user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                receiverId:
+                  type: string
+                message:
+                  type: string
+      responses:
+        '200':
+          description: Message sent successfully
+        '400':
+          description: Bad request - Missing parameters
+        '401':
+          description: Unauthorized - User not logged in
+      tags:
+        - Messages
+
+  /inbox:
+    get:
+      summary: Get user's inbox
+      responses:
+        '200':
+          description: Inbox retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Message'
+        '401':
+          description: Unauthorized - User not logged in
+      tags:
+        - Messages
+
+  /notifications:
+    get:
+      summary: Get user notifications
+      responses:
+        '200':
+          description: Notifications retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Notification'
+        '401':
+          description: Unauthorized - User not logged in
+      tags:
+        - Notifications
+    post:
+      summary: Mark notification as read
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                notificationId:
+                  type: string
+      responses:
+        '200':
+          description: Notification marked as read
+      tags:
+        - Notifications
+
+  /uploadPost:
+    post:
+      summary: Upload a new post
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                caption:
+                  type: string
+                postType:
+                  type: string
+                  enum: [image, video]
+                image:
+                  type: string
+                  format: binary
+                video:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: Post uploaded successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Post'
+        '401':
+          description: Unauthorized - User not logged in
+      tags:
+        - Posts
+
+  /recommendations:
+    get:
+      summary: Get user recommendations
+      responses:
+        '200':
+          description: Recommendations retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+        '401':
+          description: Unauthorized - User not logged in
+      tags:
+        - Recommendations
+
+  /search:
+    get:
+      summary: Search users
+      parameters:
+        - name: query
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Search results
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+        '401':
+          description: Unauthorized - User not logged in
+      tags:
+        - Search
+
+  /toggleFollow:
+    post:
+      summary: Follow or unfollow a user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                targetUserId:
+                  type: string
+                action:
+                  type: string
+                  enum: [follow, unfollow]
+      responses:
+        '200':
+          description: Action completed successfully
+        '400':
+          description: Bad request - Missing parameters
+        '401':
+          description: Unauthorized - User not logged in
+      tags:
+        - Followers
+
+  /trending:
+    get:
+      summary: Get trending posts
+      responses:
+        '200':
+          description: Trending posts retrieved
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Post'
+        '401':
+          description: Unauthorized - User not logged in
+      tags:
+        - Posts
+
+  /viewFollowers:
+    get:
+      summary: View a user's followers
+      parameters:
+        - name: id
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Followers list retrieved
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+        '401':
+          description: Unauthorized - User not logged in
+      tags:
+        - Followers
+
+  /viewFollowing:
+    get:
+      summary: View who a user is following
+      parameters:
+        - name: id
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Following list retrieved
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+        '401':
+          description: Unauthorized - User not logged in
+      tags:
+        - Followers
+
+  /viewMessages:
+    get:
+      summary: View messages with a specific user
+      parameters:
+        - name: senderId
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Messages retrieved
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Message'
+        '400':
+          description: Bad request - Missing senderId
+        '401':
+          description: Unauthorized - User not logged in
+      tags:
+        - Messages
+
+  /logout:
+    get:
+      summary: Logout user
+      responses:
+        '200':
+          description: Logout successful
+      tags:
+        - Authentication
+
+  /login:
+    post:
+      summary: Login user
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+              required:
+                - username
+                - password
+      responses:
+        '200':
+          description: Login successful
+        '400':
+          description: Bad request - Invalid credentials
+      tags:
+        - Authentication
+
+  /register:
+    post:
+      summary: Register new user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+                email:
+                  type: string
+              required:
+                - username
+                - password
+                - email
+      responses:
+        '201':
+          description: User registered successfully
+        '400':
+          description: Bad request - Invalid registration data
+      tags:
+        - Authentication
+
+  /admin/login:
+    post:
+      summary: Login admin
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+              required:
+                - username
+                - password
+      responses:
+        '200':
+          description: Admin login successful
+        '400':
+          description: Bad request - Invalid credentials
+      tags:
+        - Admin
+
+  /admin/logout:
+    get:
+      summary: Logout admin
+      responses:
+        '200':
+          description: Admin logout successful
+      tags:
+        - Admin
+
+  /admin/createAdmin:
+    post:
+      summary: Create new admin
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+              required:
+                - username
+                - password
+      responses:
+        '201':
+          description: Admin created successfully
+        '400':
+          description: Bad request - Invalid admin data
+      tags:
+        - Admin
+
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+        username:
+          type: string
+        firstname:
+          type: string
+        lastname:
+          type: string
+        bio:
+          type: string
+        profilePicture:
+          type: string
+
+    Profile:
+      type: object
+      properties:
+        user:
+          $ref: '#/components/schemas/User'
+        postCount:
+          type: integer
+        followerCount:
+          type: integer
+        followingCount:
+          type: integer
+        isFollowing:
+          type: boolean
+
+    Post:
+      type: object
+      properties:
+        id:
+          type: string
+        userId:
+          type: string
+        username:
+          type: string
+        caption:
+          type: string
+        mediaUrl:
+          type: string
+        postType:
+          type: string
+          enum: [image, video]
+        likesCount:
+          type: integer
+        commentsCount:
+          type: integer
+        createdAt:
+          type: string
+          format: date-time
+        isLiked:
+          type: boolean
+
+    Comment:
+      type: object
+      properties:
+        id:
+          type: string
+        postId:
+          type: string
+        userId:
+          type: string
+        username:
+          type: string
+        text:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+
+    Message:
+      type: object
+      properties:
+        id:
+          type: string
+        senderId:
+          type: string
+        receiverId:
+          type: string
+        content:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+        isRead:
+          type: boolean
+
+    Notification:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum: [like, comment, follow, message]
+        sourceUserId:
+          type: string
+        sourceUsername:
+          type: string
+        targetId:
+          type: string
+        isRead:
+          type: boolean
+        createdAt:
+          type: string
+          format: date-time
+
+tags:
+  - name: Authentication
+    description: User login, registration, and logout
+  - name: Admin
+    description: Admin operations
+  - name: Profiles
+    description: User profile operations
+  - name: Posts
+    description: Post operations
+  - name: Comments
+    description: Comment operations
+  - name: Likes
+    description: Post like operations
+  - name: Followers
+    description: User follow/unfollow operations
+  - name: Messages
+    description: Messaging operations
+  - name: Notifications
+    description: Notification operations
+  - name: Feed
+    description: User feed operations
+  - name: Recommendations
+    description: User recommendations
+  - name: Search
+    description: Search functionality
+		  
+openapi: 3.0.0
+info:
+  title: Follow User API
+  version: 1.0.0
+  description: API for following users
+
+paths:
+  /api/follow:
+    post:
+      summary: Follow a user
+      description: Allows the logged-in user to follow another user.
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                targetUserId:
+                  type: string
+      responses:
+        '200':
+          description: User followed successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '400':
+          description: Bad request (missing parameters).
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        '401':
+          description: Unauthorized (user not logged in).
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+					
+					
+					
+openapi: 3.0.0
+info:
+  title: Like Post API
+  version: 1.0.0
+  description: API for liking/unliking posts
+
+paths:
+  /api/likePost:
+    post:
+      summary: Like/unlike a post
+      description: Allows the logged-in user to like or unlike a post.
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                postId:
+                  type: string
+      responses:
+        '200':
+          description: Like/unlike operation successful.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '400':
+          description: Bad request (missing parameters).
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        '401':
+          description: Unauthorized (user not logged in).
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string

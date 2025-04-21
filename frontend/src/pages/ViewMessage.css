@@ -1,0 +1,147 @@
+/* ViewMessages.css */
+
+/* Main container for the chat interface */
+.view-messages-container {
+    display: flex;
+    flex-direction: column;
+    height: 80vh; /* Adjust height as needed, or use max-height */
+    max-width: 600px; /* Limit width for better readability */
+    margin: 20px auto; /* Center the container */
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden; /* Hide overflow from children */
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Heading */
+  .view-messages-heading {
+    padding: 15px;
+    font-size: 1.2em;
+    font-weight: bold;
+    text-align: center;
+    border-bottom: 1px solid #eee;
+    background-color: #f1f1f1;
+    color: #333;
+    margin: 0; /* Remove default margin */
+  }
+  
+  /* Container for the list of messages */
+  .messages-list {
+    flex-grow: 1; /* Allows this area to take up available space */
+    overflow-y: auto; /* Enables vertical scrolling */
+    padding: 15px;
+    display: flex;
+    flex-direction: column; /* Stack messages vertically */
+  }
+  
+  /* Individual message item */
+  .message-item {
+    max-width: 75%; /* Prevent messages from taking full width */
+    margin-bottom: 10px;
+    padding: 10px 15px;
+    border-radius: 15px;
+    word-wrap: break-word; /* Break long words */
+    line-height: 1.4;
+    border: 1px solid transparent; /* Base border */
+  }
+  
+  /* Styling for messages sent BY the current user (assuming receiverId is the OTHER person) */
+  /* Note: The logic item.message.receiverId === receiverId means this is a message RECEIVED by the other person, hence SENT by the current user */
+  .message-sent {
+    align-self: flex-end; /* Align to the right */
+    background-color: #dcf8c6; /* Light green background */
+    border-color: #c4e9a9;
+    text-align: right;
+  }
+  
+  /* Styling for messages received FROM the other user */
+  .message-received {
+    align-self: flex-start; /* Align to the left */
+    background-color: #fff; /* White background */
+    border-color: #eee;
+    text-align: left;
+  }
+  
+  /* .message-sent .message-content strong {
+    /* Optionally hide sender name for sent messages if it's redundant */
+     /* display: none; */
+  /* } */ */
+  
+  .message-received .message-content strong {
+   color: #007bff; /* Color for the sender's name */
+  }
+  
+  .message-content {
+    margin-bottom: 5px; /* Space between text and timestamp */
+  }
+  
+  .message-content strong {
+    font-weight: bold;
+    margin-right: 5px;
+  }
+  
+  .message-timestamp {
+    font-size: 0.75em;
+    color: #777;
+    display: block; /* Put timestamp on its own line */
+  }
+  
+  /* Area containing the input field and send button */
+  .message-input-area {
+    display: flex;
+    padding: 15px;
+    border-top: 1px solid #eee;
+    background-color: #f1f1f1;
+  }
+  
+  /* Text input field */
+  .message-input {
+    flex-grow: 1; /* Takes up available space */
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 20px; /* Rounded input field */
+    margin-right: 10px;
+    font-size: 1em;
+  }
+  
+  .message-input:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+  }
+  
+  /* Send button */
+  .send-button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    border-radius: 20px; /* Rounded button */
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.2s ease;
+  }
+  
+  .send-button:hover {
+    background-color: #0056b3;
+  }
+  
+  .send-button:disabled {
+    background-color: #aaa;
+    cursor: not-allowed;
+  }
+  
+  /* Loading and Error states */
+  .loading-text,
+  .error-text {
+    padding: 30px;
+    text-align: center;
+    font-size: 1.1em;
+    color: #555;
+  }
+  
+  .error-text {
+    color: #d9534f; /* Red color for errors */
+    font-weight: bold;
+  }

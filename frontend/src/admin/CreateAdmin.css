@@ -1,0 +1,82 @@
+.create-admin-container {
+    max-width: 500px;
+    margin: 3rem auto;
+    padding: 2rem;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.create-admin-container h2 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 1.5rem;
+}
+
+.create-admin-form .form-group {
+    margin-bottom: 1.5rem;
+}
+
+.create-admin-form label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #2c3e50;
+    font-weight: 500;
+}
+
+.create-admin-form .form-control {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.create-admin-form .form-control:focus {
+    border-color: #3498db;
+    outline: none;
+}
+
+.create-button {
+    width: 100%;
+    background-color: #3498db;
+    color: white;
+    padding: 0.8rem;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.create-button:hover {
+    background-color: #2980b9;
+}
+
+.back-button {
+    display: block;
+    margin-top: 1rem;
+    text-align: center;
+    color: #3498db;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.back-button:hover {
+    color: #2c3e50;
+}
+
+.success-message {
+    color: green;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.error-message {
+    color: red;
+    text-align: center;
+    margin-bottom: 1rem;
+}
